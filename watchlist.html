@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Movie Watchlist</title>
+
 <style>
-   body {
+body {
     font-family: Arial, sans-serif;
     background: #FFF9C4;
     color: #333;
@@ -29,9 +30,9 @@ h1 {
     color: #4A4A00;
 }
 
-    .movie-title {
-        font-size: 18px;
-    }
+.movie-title {
+    font-size: 18px;
+}
 
 .toggle .slider {
     background: #bbb;
@@ -40,13 +41,10 @@ h1 {
 input:checked + .slider {
     background: #4caf50;
 }
-    input:checked + .slider {
-        background: #4caf50;
-    }
 
-    input:checked + .slider:before {
-        transform: translateX(24px);
-    }
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
 
 .top-images, .add-section-images {
     display: flex;
@@ -60,13 +58,15 @@ input:checked + .slider {
     height: 200px;
     object-fit: cover;
     border-radius: 12px;
-    border: 4px solid #0B3D0B; /* dark green border */
+    border: 4px solid #0B3D0B;
 }
-
 </style>
 </head>
+
 <body>
+
 <h1>🎬 Vere's Movie Watchlist</h1>
+
 <div class="top-images">
     <img src="image0.jpeg" alt="Image 1">
     <img src="image1.jpeg" alt="Image 2">
@@ -76,126 +76,46 @@ input:checked + .slider {
         src="https://open.spotify.com/embed/track/4Yu2vdSKkFrBM5agrx5XRN?utm_source=generator&theme=0"
         width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
 </iframe>
+
 <div id="movieList"></div>
 
-<div class="movie">
-    <span class="movie-title">Crazy, Stupid, Love</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">Django Unchained</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">Interstellar</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">Inception</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">Lars and the Real Girl</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">Eternal Sunshine of the Spotless Mind</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">The Pursuit of Happiness</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">Love & Other Drugs</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">The Amazing Spider-Man 2</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<div class="movie">
-    <span class="movie-title">Hereditary (maybe lol)</span>
-    <label class="toggle">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-</div>
-
 <h2>Add a New Movie</h2>
-<input type="text" id="newMovieInput" placeholder="Enter movie name... if ya like" style="padding:10px; width:70%; border-radius:6px; border:none;">
-<button id="addMovieBtn" style="padding:10px 15px; margin-left:10px; border:none; border-radius:6px; background:#1e90ff; color:white; cursor:pointer;">
+<input type="text" id="newMovieInput" placeholder="Enter movie name... if ya like"
+       style="padding:10px; width:70%; border-radius:6px; border:none;">
+<button id="addMovieBtn"
+        style="padding:10px 15px; margin-left:10px; border:none; border-radius:6px; background:#1e90ff; color:white; cursor:pointer;">
     Add Movie
 </button>
+
 <div class="add-section-images">
     <img src="image5.jpeg" alt="Image 3">
     <img src="image4.jpeg" alt="Image 4">
 </div>
 
+<script>
 
-<script>    
-    const movieList = document.getElementById("movieList");
-    const addMovieBtn = document.getElementById("addMovieBtn");
-    const newMovieInput = document.getElementById("newMovieInput");
+const movieList = document.getElementById("movieList");
+const addMovieBtn = document.getElementById("addMovieBtn");
+const newMovieInput = document.getElementById("newMovieInput");
 
-    let movies = JSON.parse(localStorage.getItem("movies")) || [
-        "Spider-Man: Into the Spider-Verse",
-        "Interstellar",
-        "Inception"
-    ];
+let movies = JSON.parse(localStorage.getItem("movies")) || [
+    "Crazy, Stupid, Love",
+    "Django Unchained",
+    "Interstellar",
+    "Inception",
+    "Lars and the Real Girl",
+    "Eternal Sunshine of the Spotless Mind",
+    "The Pursuit of Happiness",
+    "Love & Other Drugs",
+    "The Amazing Spider-Man 2",
+    "Hereditary (maybe lol)"
+];
 
-    function saveMovies() {
-        localStorage.setItem("movies", JSON.stringify(movies));
-    }
+function saveMovies() {
+    localStorage.setItem("movies", JSON.stringify(movies));
+}
 
-    addMovieBtn.addEventListener("click", () => {
-        const title = newMovieInput.value.trim();
-        if (title === "") return;
-
-        movies.push(title);
-        saveMovies();
-        renderMovies();
-
-        newMovieInput.value = "";
-    });
-
-   function renderMovies() {
+function renderMovies() {
     movieList.innerHTML = "";
 
     movies.forEach((title, index) => {
@@ -231,7 +151,7 @@ input:checked + .slider {
         const deleteBtn = div.querySelector(".deleteBtn");
         deleteBtn.addEventListener("click", () => {
             movies.splice(index, 1);
-            saveMovies();            
+            saveMovies();
 
             localStorage.removeItem("movieState_" + index);
 
@@ -240,8 +160,19 @@ input:checked + .slider {
     });
 }
 
-</script>
+addMovieBtn.addEventListener("click", () => {
+    const title = newMovieInput.value.trim();
+    if (title === "") return;
 
+    movies.push(title);
+    saveMovies();
+    renderMovies();
+
+    newMovieInput.value = "";
+});
+
+renderMovies();
+</script>
 
 </body>
 </html>
