@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Welcome</title>
+<style>
+    body {
+        background: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        text-align: center;
+        padding: 40px;
+        border: 2px solid #ccc;
+        border-radius: 12px;
+        width: 300px;
+    }
+
+    input {
+        width: 90%;
+        padding: 10px;
+        margin-top: 15px;
+        border-radius: 6px;
+        border: 1px solid #aaa;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background: #333;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Enter Password</h2>
+    <input type="password" id="pw" placeholder="Password">
+    <button onclick="checkPassword()">Enter</button>
+</div>
+
+<script>
+function checkPassword() {
+    const correctPassword = "03172026";
+    const input = document.getElementById("pw").value;
+
+    if (input === correctPassword) {
+        window.location.href = "watchlist.html";
+    } else {
+        alert("Incorrect password");
+    }
+}
+</script>
+
+</body>
+</html>

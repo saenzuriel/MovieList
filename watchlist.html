@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Movie Watchlist</title>
+<style>
+   body {
+    font-family: Arial, sans-serif;
+    background: #FFF9C4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.movie {
+    background: #0B3D0B;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #4A4A00;
+}
+
+    .movie-title {
+        font-size: 18px;
+    }
+
+.toggle .slider {
+    background: #bbb;
+}
+
+input:checked + .slider {
+    background: #4caf50;
+}
+    input:checked + .slider {
+        background: #4caf50;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(24px);
+    }
+
+.top-images, .add-section-images {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.top-images img, .add-section-images img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 4px solid #0B3D0B; /* dark green border */
+}
+
+</style>
+</head>
+<body>
+<h1>🎬 Vere's Movie Watchlist</h1>
+<div class="top-images">
+    <img src="image0.jpeg" alt="Image 1">
+    <img src="image1.jpeg" alt="Image 2">
+</div>
+
+<iframe style="border-radius:12px" 
+        src="https://open.spotify.com/embed/track/4Yu2vdSKkFrBM5agrx5XRN?utm_source=generator&theme=0"
+        width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+</iframe>
+<div id="movieList"></div>
+
+<div class="movie">
+    <span class="movie-title">Crazy, Stupid, Love</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">Django Unchained</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">Interstellar</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">Inception</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">Lars and the Real Girl</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">Eternal Sunshine of the Spotless Mind</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">The Pursuit of Happiness</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">Love & Other Drugs</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">The Amazing Spider-Man 2</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="movie">
+    <span class="movie-title">Hereditary (maybe lol)</span>
+    <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<h2>Add a New Movie</h2>
+<input type="text" id="newMovieInput" placeholder="Enter movie name... if ya like" style="padding:10px; width:70%; border-radius:6px; border:none;">
+<button id="addMovieBtn" style="padding:10px 15px; margin-left:10px; border:none; border-radius:6px; background:#1e90ff; color:white; cursor:pointer;">
+    Add Movie
+</button>
+<div class="add-section-images">
+    <img src="image5.jpeg" alt="Image 3">
+    <img src="image4.jpeg" alt="Image 4">
+</div>
+
+
+<script>    
+    const movieList = document.getElementById("movieList");
+    const addMovieBtn = document.getElementById("addMovieBtn");
+    const newMovieInput = document.getElementById("newMovieInput");
+
+    let movies = JSON.parse(localStorage.getItem("movies")) || [
+        "Spider-Man: Into the Spider-Verse",
+        "Interstellar",
+        "Inception"
+    ];
+
+    function saveMovies() {
+        localStorage.setItem("movies", JSON.stringify(movies));
+    }
+
+    addMovieBtn.addEventListener("click", () => {
+        const title = newMovieInput.value.trim();
+        if (title === "") return;
+
+        movies.push(title);
+        saveMovies();
+        renderMovies();
+
+        newMovieInput.value = "";
+    });
+
+   function renderMovies() {
+    movieList.innerHTML = "";
+
+    movies.forEach((title, index) => {
+        const div = document.createElement("div");
+        div.className = "movie";
+
+        div.innerHTML = `
+            <span class="movie-title">${title}</span>
+
+            <div style="display:flex; align-items:center; gap:10px;">
+                <label class="toggle">
+                    <input type="checkbox" id="movie_${index}">
+                    <span class="slider"></span>
+                </label>
+
+                <button class="deleteBtn" data-index="${index}" 
+                        style="background:#ff4444; border:none; padding:6px 10px; border-radius:6px; color:white; cursor:pointer;">
+                    Delete
+                </button>
+            </div>
+        `;
+
+        movieList.appendChild(div);
+
+        const checkbox = div.querySelector("input");
+        const savedState = localStorage.getItem("movieState_" + index);
+        if (savedState === "true") checkbox.checked = true;
+
+        checkbox.addEventListener("change", () => {
+            localStorage.setItem("movieState_" + index, checkbox.checked);
+        });
+
+        const deleteBtn = div.querySelector(".deleteBtn");
+        deleteBtn.addEventListener("click", () => {
+            movies.splice(index, 1);
+            saveMovies();            
+
+            localStorage.removeItem("movieState_" + index);
+
+            renderMovies();
+        });
+    });
+}
+
+</script>
+
+
+</body>
+</html>
